@@ -1,0 +1,60 @@
+---
+config:
+  layout: elk
+---
+flowchart TD
+ subgraph Internet["Internet Users"]
+        UserDevice["User Device - Browser/Mobile"]
+  end
+ subgraph BackendServicesPods["Backend Services Pods"]
+        CoreSvcPod1["User Service Pod"]
+        CoreSvcPod2["Venture Service Pod"]
+        CoreSvcPodN["...other Core Service Pods"]
+  end
+ subgraph AIServicesPods["AI/ML Services Pods"]
+        AISvcPod1["Idea AI Service Pod"]
+        AISvcPod2["Matching AI Service Pod"]
+        AISvcPodN["...other AI Service Pods"]
+  end
+ subgraph KubernetesCluster["Kubernetes Cluster - EKS, GKE, AKS"]
+    direction TB
+        NodeAppFE["Frontend App Pods - Web Server"]
+        BackendServicesPods
+        AIServicesPods
+  end
+ subgraph ManagedDataServices["Managed Data Services"]
+    direction TB
+        OperationalDB["Managed Operational DB - e.g. RDS, Cloud SQL"]
+        VectorDB["Managed Vector DB"]
+        BlobStore["Blob Storage - e.g. S3, GCS"]
+        DWH["Data Warehouse - e.g. Redshift, BigQuery"]
+        SearchSvc["Managed Search Service - e.g. OpenSearch"]
+        MsgQueue["Message Queue - e.g. SQS, Pub/Sub"]
+  end
+ subgraph ManagedAIServices["Managed AI/ML Services"]
+        MLPlatform["AI Platform - e.g. SageMaker, Vertex AI"]
+  end
+ subgraph ExternalConnections["Connections to External Services"]
+        ExtKYC["External KYC API"]
+        ExtPayment["External Payment Gateway API"]
+        ExtSocial["Social Media APIs"]
+        ExtComm["Communication APIs - Email/SMS"]
+  end
+ subgraph CloudProvider["Cloud Provider - e.g. AWS, GCP, Azure"]
+    direction LR
+        CDN["CDN - Content Delivery Network"]
+        APIGateway["API Gateway - Managed Service"]
+        KubernetesCluster
+        ManagedDataServices
+        ManagedAIServices
+        ExternalConnections
+        LoggingMonitoring["Logging & Monitoring Service"]
+  end
+    UserDevice --> CDN
+    CDN --> NodeAppFE
+    NodeAppFE --> APIGateway
+    APIGateway --> BackendServicesPods & AIServicesPods
+    BackendServicesPods --> OperationalDB & BlobStore & SearchSvc & MsgQueue & LoggingMonitoring & ExternalConnections
+    AIServicesPods --> OperationalDB & VectorDB & BlobStore & MsgQueue & DWH & MLPlatform & LoggingMonitoring
+    OperationalDB --> DWH
+    MLPlatform -.-> AIServicesPods
