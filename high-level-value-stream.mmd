@@ -1,0 +1,64 @@
+---
+config:
+  layout: elk
+id: 5092956e-5c29-4eb9-bda9-e9f3d7d7eb8f
+---
+flowchart TD
+ subgraph User["User"]
+        U1["Lands on Platform (Discovery)"]
+        U2["Signs Up, Describes Idea (Onboarding)"]
+        U3["Answers Questions (Activation)"]
+        U4["Launches Survey (Engagement)"]
+        U5["Uploads Responses (Validation)"]
+        U6["Refines CVP (Refinement)"]
+        U7["Selects Format (Pitching)"]
+        U8["Generates Deck (Output)"]
+  end
+ subgraph Platform["Platform"]
+        P1["Show Value Proposition"]
+        P2["AI Idea Agent"]
+        P3["AI Hypothesis Agent"]
+        P4["AI Research Agent"]
+        P5["AI Insight Agent"]
+        P6["AI Value Agent"]
+        P7["AI Structure Agent"]
+        P8["AI Pitch Agent"]
+  end
+ subgraph Output["Output"]
+        O1["Encouraging Entry"]
+        O2["AI-Generated Canvas"]
+        O3["Hypothesis Matrix"]
+        O4["Survey, Real Responses"]
+        O5["Feedback Heatmap"]
+        O6["Finalized CVP"]
+        O7["Pre-filled Template"]
+        O8["Downloadable Pitch"]
+        O9["Pitch Ready for Sharing"]
+  end
+    U1 --> P1
+    P1 --> O1
+    O1 --> U2
+    U2 --> P2
+    P2 --> O2
+    O2 --> U3
+    U3 --> P3
+    P3 --> O3
+    O3 --> U4
+    U4 --> P4
+    P4 --> O4
+    O4 --> U5
+    U5 --> P5
+    P5 --> O5
+    O5 --> U6
+    U6 --> P6
+    P6 --> O6
+    O6 --> U7
+    U7 --> P7
+    P7 --> O7
+    O7 --> U8
+    U8 --> P8
+    P8 --> O8
+    O8 --> O9
+    style User fill:#BBDEFB
+    style Platform fill:#C8E6C9
+    style Output fill:#E1BEE7

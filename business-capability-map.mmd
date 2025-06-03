@@ -1,0 +1,81 @@
+---
+config:
+  layout: elk
+---
+flowchart TB
+ subgraph CoreCapabilities["Core Capabilities"]
+    direction TB
+        C1["C1: Startup Onboarding & Profiling"]
+        C1_1["C1.1: Idea Capturing & Structuring"]
+        C1_2["C1.2: User Registration & Profile Mgt"]
+        C1_3["C1.3: Identity Verification"]
+        C2["C2: Idea Validation & Refinement"]
+        C2_1["C2.1: Problem Validation & Hypothesis Testing"]
+        C2_2["C2.2: Assumption Extraction & Mgt"]
+        C2_3["C2.3: Market Research Facilitation"]
+        C2_4["C2.4: Feedback Collection & Analysis"]
+        C2_5["C2.5: Value Proposition Refinement"]
+        C3["C3: Pitch Development & Presentation"]
+        C3_1["C3.1: Pitch Deck Generation"]
+        C3_2["C3.2: Pitch Format Selection"]
+        C3_3["C3.3: Branded Presentation Creation"]
+        C4["C4: Ecosystem Matching & Connection"]
+        C4_1["C4.1: Startup Discovery & Filtering"]
+        C4_2["C4.2: Mission/Thesis Alignment Matching"]
+        C4_3["C4.3: Introduction & Meeting Coordination"]
+        C5["C5: Funding & Support Facilitation"]
+        C5_1["C5.1: Secure Pledging & Contribution Mgt"]
+        C5_2["C5.2: Supporter Recognition & Badging"]
+        C6["C6: Progress Tracking & Reporting"]
+        C6_1["C6.1: Startup Performance Monitoring"]
+        C6_2["C6.2: Milestone Tracking"]
+        C6_3["C6.3: Impact Measurement & Reporting"]
+        C6_4["C6.4: Analytics Dashboard Provision"]
+        C7["C7: Program & Challenge Management"]
+        C7_1["C7.1: Cohort Onboarding & Management"]
+        C7_2["C7.2: Themed Challenge Creation & Admin"]
+        C7_3["C7.3: Event Management Support"]
+        C8["C8: Data & Insights Provision"]
+        C8_1["C8.1: Anonymized Data Aggregation & Access"]
+        C8_2["C8.2: Trend Analysis & Visualization"]
+        C8_3["C8.3: Benchmarking & Comparative Analysis"]
+  end
+ subgraph SupportingCapabilities["Supporting Capabilities"]
+    direction TB
+        S1["S1: Platform & Technology Management"]
+        S1_1["S1.1: AI Agent Development & Mgt"]
+        S1_2["S1.2: Data Infrastructure & Security"]
+        S1_3["S1.3: UX/UI Design"]
+        S1_4["S1.4: Platform Scalability & Reliability"]
+        S2["S2: User & Partner Management"]
+        S2_1["S2.1: User Authentication & Authorization"]
+        S2_2["S2.2: Partner Onboarding & Relations"]
+        S2_3["S2.3: Customer Support & Feedback Mgt"]
+        S3["S3: Governance & Compliance"]
+        S3_1["S3.1: Data Privacy & Ethics Mgt"]
+        S3_2["S3.2: Legal & Regulatory Compliance"]
+        S3_3["S3.3: Data Governance & Quality Assurance"]
+  end
+ subgraph StrategicCapabilities["Strategic Capabilities"]
+    direction TB
+        ST1["ST1: Ecosystem Development & Outreach"]
+        ST1_1["ST1.1: Marketing & Brand Building"]
+        ST1_2["ST1.2: Community Engagement"]
+        ST2["ST2: Research & Innovation"]
+        ST2_1["ST2.1: AI Model Research & Fine-Tuning"]
+        ST2_2["ST2.2: New Product/Feature Development"]
+  end
+    C1 --> C1_1 & C1_2 & C1_3
+    C2 --> C2_1 & C2_2 & C2_3 & C2_4 & C2_5
+    C3 --> C3_1 & C3_2 & C3_3
+    C4 --> C4_1 & C4_2 & C4_3
+    C5 --> C5_1 & C5_2
+    C6 --> C6_1 & C6_2 & C6_3 & C6_4
+    C7 --> C7_1 & C7_2 & C7_3
+    C8 --> C8_1 & C8_2 & C8_3
+    S1 --> S1_1 & S1_2 & S1_3 & S1_4
+    S2 --> S2_1 & S2_2 & S2_3
+    S3 --> S3_1 & S3_2 & S3_3
+    ST1 --> ST1_1 & ST1_2
+    ST2 --> ST2_1 & ST2_2
+    CAP["Ten X Catalyst Capabilities"] --> C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8 & S1 & S2 & S3 & ST1 & ST2
