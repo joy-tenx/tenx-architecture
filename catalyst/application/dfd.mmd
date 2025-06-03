@@ -1,0 +1,53 @@
+sequenceDiagram
+    participant F as Founder (Web Portal)
+    participant APIG as API Gateway
+    participant VS as Venture Service
+    participant IAS as Idea & Validation AI Service
+    participant PAS as Pitch Generation AI Service
+    participant ODB as Operational DB
+    participant VDB as Vector DB
+    participant BS as Blob Storage
+
+    F->>APIG: 1. Submit Idea Details (SF-01)
+    APIG->>VS: 2. Create/Update Idea (JSON)
+    VS->>ODB: 3. Store Idea Details
+    ODB-->>VS: 4. Idea Record
+    VS-->>APIG: 5. Confirmation
+    APIG-->>F: 6. Idea Canvas Displayed (SF-02)
+
+    F->>APIG: 7. Submit Validation Assumptions (SF-02)
+    APIG->>IAS: 8. Process Assumptions (JSON)
+    IAS->>ODB: 9. Fetch Idea Details
+    ODB-->>IAS: 10. Idea Data
+    IAS->>VDB: 11. Generate & Store Embeddings (for similar ideas later)
+    IAS->>ODB: 12. Store Hypothesis Matrix
+    ODB-->>IAS: 13. Stored Matrix
+    IAS-->>APIG: 14. Hypothesis Matrix
+    APIG-->>F: 15. Display Hypothesis Matrix
+
+    F->>APIG: 16. Request Survey Generation (SF-03)
+    APIG->>IAS: 17. Generate Survey Script
+    IAS->>ODB: 18. Fetch CVP/Problem data
+    ODB-->>IAS: 19. CVP/Problem
+    IAS-->>APIG: 20. Survey Script
+    APIG-->>F: 21. Display Survey, Share Links
+
+    F->>APIG: 22. Upload Survey Responses/Notes (SF-05)
+    APIG->>BS: 23. Store Raw Response Files
+    BS-->>APIG: 24. File References
+    APIG->>IAS: 25. Analyze Responses (File Refs, Context)
+    IAS->>BS: 26. Fetch Raw Files
+    BS-->>IAS: 27. Files
+    IAS->>ODB: 28. Store Insights (Themes, Sentiment)
+    IAS-->>APIG: 29. Feedback Heatmap/Analysis
+    APIG-->>F: 30. Display Insights
+
+    F->>APIG: 31. Request Pitch Deck Generation (SF-05)
+    APIG->>PAS: 32. Generate Pitch (IdeaID, Format)
+    PAS->>ODB: 33. Fetch Idea Summary, CVP, Insights
+    ODB-->>PAS: 34. Compiled Data
+    PAS->>BS: 35. Store Generated Pitch Deck
+    BS-->>PAS: 36. Pitch Deck URL
+    PAS->>ODB: 37. Update StartupIdea with PitchDeckLink
+    PAS-->>APIG: 38. Pitch Deck URL
+    APIG-->>F: 39. Downloadable/Shareable Pitch
