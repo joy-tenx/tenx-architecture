@@ -1,0 +1,42 @@
+---
+config:
+  theme: neo
+---
+erDiagram
+    Founder {
+        string Info "Founder Profiles, Bio, KYC status, etc."
+    }
+    StartupIdea {
+        string Info "Idea Details, Sector, Stage, Value Proposition, etc."
+    }
+    ValidationData {
+        string Info "Survey Scripts & Responses, Feedback Analysis, etc."
+    }
+    PitchDeck {
+        string Info "Generated Pitch Decks, Supporting Documents, etc."
+    }
+    Funder {
+        string Info "Funder Profiles, Investment Thesis, Mission Alignment, etc."
+    }
+    Investment {
+        string Info "Investment/Pledge Data, Contribution Details, etc."
+    }
+    Accelerator {
+        string Info "Accelerator Program Details, Mentor Info, etc."
+    }
+    Cohort {
+        string Info "Cohort Data, List of Startups, Progress, etc."
+    }
+    PlatformInteractionData {
+        string Info "(INFO4) User Activity Logs, Profile Views, Analytics, etc."
+    }
+    AggregatedEcosystemData {
+        string Info "(INFO5) Anonymized Trends, Benchmarks, Startup Funnel Data, etc."
+    }
+    Founder                 ||--o{ StartupIdea : "has/creates"
+    StartupIdea             ||--o{ ValidationData : "utilizes/generates"
+    StartupIdea             ||--|| PitchDeck : "results in"
+    Funder                  ||--o{ Investment : "makes/provides"
+    StartupIdea             ||--o{ Investment : "receives"
+    Accelerator             ||--o{ Cohort : "manages/runs"
+    Cohort                  }o--o{ StartupIdea : "includes/supports"
