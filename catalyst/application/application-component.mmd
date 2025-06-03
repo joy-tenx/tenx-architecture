@@ -1,0 +1,68 @@
+---
+config:
+  layout: elk
+---
+flowchart TD
+ subgraph UserClients["User Clients"]
+        WebPortal["Ten X Catalyst Web Portal (Browser)"]
+        MobileApp["(Optional) Mobile App"]
+  end
+ subgraph APIGateway["API Gateway"]
+        APIG["API Gateway"]
+  end
+ subgraph CoreServices["Core Backend Services"]
+        UserService["User & Profile Mgt Service (KYC, Auth)"]
+        VentureService["Startup Venture Service (Idea, Pitch, Validation)"]
+        FunderService["Funder & Investment Service"]
+        ProgramService["Program & Cohort Mgt Service"]
+        NotificationService["Notification Service"]
+        SearchService["Search & Discovery Service"]
+        ContentService["Content Management Service"]
+        ReportingService["Reporting & Analytics Service"]
+  end
+ subgraph AIServices["AI/ML Services - AI Agents"]
+        IdeaAIService["Idea & Validation AI Service"]
+        PitchAIService["Pitch Generation AI Service"]
+        TrustAIService["Trust & Verification AI Service"]
+        GrowthAIService["Growth & Engagement AI Service"]
+        MatchAIService["Matching & Connection AI Service"]
+        ProgramSupportAIService["Program Support AI Service"]
+        EcosystemAIService["Ecosystem Insights AI Service"]
+        ResearchAIService["Research & AI Governance Service"]
+  end
+ subgraph DataStores["Data Persistence Layer"]
+        OperationalDB["Operational DB (SQL/NoSQL)"]
+        VectorDB["Vector DB"]
+        BlobStorage["Document/Blob Storage"]
+        DataWarehouse["Data Warehouse / Lake"]
+        SearchIndex["Search Index"]
+  end
+ subgraph ExternalIntegrations["External Integrations"]
+        KYCService["External KYC Service"]
+        PaymentSvc["Payment Gateway"]
+        SocialAPIs["Social Media APIs"]
+        CommSvc["Communication Services (Email/SMS)"]
+  end
+    UserClients --> APIG
+    APIG --> UserService & VentureService & FunderService & ProgramService & SearchService & ContentService & ReportingService & IdeaAIService & PitchAIService & GrowthAIService & MatchAIService & ProgramSupportAIService & EcosystemAIService & ResearchAIService
+    UserService --> OperationalDB & TrustAIService
+    TrustAIService --> KYCService
+    VentureService --> OperationalDB & BlobStorage & IdeaAIService & PitchAIService
+    FunderService --> OperationalDB
+    ProgramService --> OperationalDB
+    SearchService --> SearchIndex
+    ReportingService --> DataWarehouse
+    IdeaAIService --> OperationalDB & VectorDB
+    PitchAIService --> BlobStorage
+    GrowthAIService --> OperationalDB
+    MatchAIService --> OperationalDB & VectorDB
+    ProgramSupportAIService --> OperationalDB
+    EcosystemAIService --> DataWarehouse
+    ResearchAIService --> DataWarehouse & VectorDB
+    OperationalDB --> DataWarehouse
+    SearchIndex -.-> OperationalDB
+    CoreServices --> NotificationService
+    AIServices --> NotificationService
+    NotificationService --> CommSvc
+    CoreServices -.-> SocialAPIs
+    AIServices -.-> SocialAPIs
