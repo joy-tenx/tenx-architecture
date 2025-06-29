@@ -1,0 +1,56 @@
+---
+config:
+  layout: elk
+---
+flowchart TD
+ subgraph subGraph0["Idea Definition & Initial Planning"]
+    direction TB
+        N_003["FID-UI-003: Value Proposition Canvas"]
+        N_002["FID-UI-002: Define Your Idea / Idea Canvas"]
+        N_004["FID-UI-004: Assumptions & Hypotheses"]
+  end
+ subgraph subGraph1["Validation & Feedback Loop"]
+    direction TB
+        N_005["FID-UI-005: Create Research Plan / Generate Script"]
+        N_006["FID-UI-006: My Research / Feedback Hub"]
+        N_007["FID-UI-007: Feedback Insights Dashboard"]
+  end
+ subgraph subGraph2["Pitch Generation"]
+    direction TB
+        N_008["FID-UI-008: Choose Pitch Deck Format"]
+        N_001["FID-UI-001: My Ideas / Idea Workbench"]
+        N_009["FID-UI-009: Edit Your Pitch Deck"]
+        N_010["FID-UI-010: Your Pitch Deck is Ready!"]
+        N_011["FID-UI-011: Founder Dashboard"]
+  end
+    N_011 --> N_001
+    N_001 -- Select/Create Idea --> N_002
+    N_002 -- Define/Edit Value Proposition --> N_003
+    N_003 -- Save CVP --> N_002
+    N_002 -- Identify Assumptions/Hypotheses --> N_004
+    N_004 -- Save Hypotheses --> N_002
+    N_004 -- Design Research to Test Hypotheses --> N_005
+    N_005 -- Launch/Save Research Plan --> N_006
+    N_006 -- Upload Feedback Files --> N_006
+    N_006 -- View Analyzed Insights --> N_007
+    N_007 -- Refine Value Proposition --> N_003
+    N_007 -- Update Hypotheses Status --> N_004
+    N_007 -- Back to Idea Overview --> N_002
+    N_002 -- Proceed to Pitch Generation --> N_008
+    N_001 -- Generate Pitch for Idea --> N_008
+    N_008 -- Select Template --> N_009
+    N_009 -- Generate/Save Pitch --> N_010
+    N_010 -- Download/Share Pitch --> N_001
+    N_010 -- Back to Dashboard --> N_011
+     N_011:::screen
+     N_001:::screen
+     N_002:::screen
+     N_003:::screen
+     N_004:::screen
+     N_005:::screen
+     N_006:::screen
+     N_007:::screen
+     N_008:::screen
+     N_009:::screen
+     N_010:::screen
+    classDef screen fill:#ececff,stroke:#9370db,stroke-width:2px,color:#333

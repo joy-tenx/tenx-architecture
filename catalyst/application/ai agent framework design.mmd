@@ -1,0 +1,65 @@
+---
+config:
+  layout: elk
+  look: neo
+  theme: neo
+---
+flowchart TD
+ subgraph subGraph0["Agent Core"]
+        Orchestrator["Orchestration Engine (Control Loop)"]
+        Planner["Planner / Task Decomposer"]
+        LLM["LLM Core (Reasoning & Decision Making)"]
+        TaskQueue["Task Queue"]
+  end
+ subgraph subGraph1["Memory System"]
+        ShortTerm["Short-Term Memory (Scratchpad / Current Context)"]
+        LongTerm["Long-Term Memory (Vector DB for Experiences & Knowledge)"]
+  end
+ subgraph subGraph2["Toolbelt / Execution Layer"]
+        ToolExecutor["Tool Executor"]
+        WebSearch["Web Search Tool"]
+        CodeInterpreter["Code Interpreter"]
+        DBQuery["Database Query Tool"]
+        APICaller["External API Caller"]
+        FileSystem["File System Access"]
+  end
+    UserInput["User Request / Goal"] --> Orchestrator
+    Orchestrator -- Decompose Goal --> Planner
+    Planner -- Create Plan --> TaskQueue
+    Orchestrator -- Get Next Task --> TaskQueue
+    Orchestrator -- Retrieve Context --> ShortTerm & LongTerm
+    ShortTerm -- Provide Context --> LLM
+    LongTerm -- Provide Context --> LLM
+    Orchestrator -- Get Next Action --> LLM
+    LLM -- Decision (Tool, Arguments) --> Orchestrator
+    Orchestrator -- Execute Tool --> ToolExecutor
+    ToolExecutor -- Calls appropriate tool --> WebSearch & CodeInterpreter & DBQuery & APICaller & FileSystem
+    WebSearch -- Result --> Orchestrator
+    CodeInterpreter -- Result --> Orchestrator
+    DBQuery -- Result --> Orchestrator
+    APICaller -- Result --> Orchestrator
+    FileSystem -- Result --> Orchestrator
+    Orchestrator -- Update Memory --> ShortTerm & LongTerm
+    Orchestrator -- Check Plan Status --> IsPlanComplete{"Is Plan complete?"}
+    IsPlanComplete -- Yes --> FinalOutput["Final Response / Action"]
+    IsPlanComplete -- No (Loop) --> Orchestrator
+     UserInput:::userio
+     Orchestrator:::core
+     Planner:::core
+     LLM:::core
+     TaskQueue:::core
+     ShortTerm:::memory
+     LongTerm:::memory
+     ToolExecutor:::tools
+     WebSearch:::tools
+     CodeInterpreter:::tools
+     DBQuery:::tools
+     APICaller:::tools
+     FileSystem:::tools
+     FinalOutput:::userio
+     IsPlanComplete:::decision
+    classDef core fill:#d9e5ff,stroke:#333,stroke-width:2px
+    classDef tools fill:#ffe5d9,stroke:#333,stroke-width:2px
+    classDef memory fill:#d9f5d9,stroke:#333,stroke-width:2px
+    classDef userio fill:#f9f9f9,stroke:#333,stroke-width:2px
+    classDef decision fill:#fff2cc,stroke:#333,stroke-width:2px

@@ -1,0 +1,69 @@
+---
+config:
+  theme: neo
+  layout: elk
+---
+flowchart LR
+ subgraph Stage1["Onboarding & Registration"]
+        A["Trader Onboarding"]
+        A_Actor["Actor: Trader"]
+        A_System["System: Mobile/Web App"]
+        A_Output["Output: Verified Trader Profile"]
+  end
+ subgraph Stage2["Inspection & Verification"]
+        B["Crop Inspection Request & Scheduling"]
+        B_Actor["Actor: Farmer/Trader"]
+        B_System["System: Mobile App"]
+        B_Output["Output: Paid & Scheduled Inspection"]
+        C["Field Inspection & Data Capture"]
+        C_Actor["Actor: Inspector"]
+        C_System["System: Offline-First Mobile App"]
+        C_Output["Output: Digital Inspection Report"]
+  end
+ subgraph Stage3["Certification & Issuance"]
+        D["Compliance Review & Certificate Generation"]
+        D_Actor["Actor: IAOM Officer"]
+        D_System["System: Admin Web Portal"]
+        D_Output["Output: Signed Digital Certificate with QR Code"]
+  end
+ subgraph Stage4["Market Transaction & Verification"]
+        E["Public Certificate Verification"]
+        E_Actor["Actor: Buyer / Third Party"]
+        E_System["System: Public Portal / Any QR Scanner"]
+        E_Output["Output: Authenticated Certificate & Trusted Trade"]
+  end
+ subgraph ValueStream["Value Stream: Formalized Oilseed Certification & Trade"]
+    direction LR
+        Stage1
+        Stage2
+        Stage3
+        Stage4
+  end
+    B --> C
+    A --> B
+    C --> D
+    D --> E
+     A:::stage
+     A_Actor:::actor
+     A_System:::system
+     A_Output:::output
+     B:::stage
+     B_Actor:::actor
+     B_System:::system
+     B_Output:::output
+     C:::stage
+     C_Actor:::actor
+     C_System:::system
+     C_Output:::output
+     D:::stage
+     D_Actor:::actor
+     D_System:::system
+     D_Output:::output
+     E:::stage
+     E_Actor:::actor
+     E_System:::system
+     E_Output:::output
+    classDef stage fill:#E1F5FE,stroke:#01579B,stroke-width:2px
+    classDef actor fill:#FFF9C4,stroke:#F57F17,stroke-width:1px
+    classDef system fill:#E8F5E9,stroke:#1B5E20,stroke-width:1px
+    classDef output fill:#F3E5F5,stroke:#4A148C,stroke-width:1px

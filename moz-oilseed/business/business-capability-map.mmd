@@ -1,0 +1,46 @@
+---
+config:
+  layout: elk
+  theme: neo
+---
+flowchart TB
+ subgraph subGraph0["Core Platform Capabilities"]
+        A1("Trader & Farmer Onboarding")
+        A2("Crop Inspection Scheduling")
+        A3("Digital Certification Issuance")
+        A4("Certificate Verification & QR Scanning")
+        A5("Persona-based Workflow Management")
+        A6("Multilingual & Multi-device UX")
+  end
+ subgraph subGraph1["Governance & Compliance"]
+        B1("Audit & Traceability Logging")
+        B2("Fraud Detection & Dispute Management")
+        B3("SLA Monitoring & Reporting")
+        B4("Regulatory Compliance (Data Sovereignty)")
+        B5("GovNet / e-Gov Integration")
+  end
+ subgraph subGraph2["Technical Enablement"]
+        C1("Offline-first Mobile Access")
+        C2("Secure Identity & Role Management")
+        C3("Notifications & Payment Integration")
+        C4("Scalable & Modular Architecture")
+        C5("Analytics & Reporting Dashboards")
+  end
+ subgraph subGraph3["Future-Ready Capabilities"]
+        D1("AI-driven Risk & Market Insights")
+        D2("Blockchain/Web3 Certificate Registry")
+        D3("Open APIs for Ecosystem Integration")
+  end
+    A1 --> A2 & C2
+    A2 --> A3
+    A3 --> A4 & C3 & D2
+    A4 --> B1 & C5
+    B1 --> B2
+    B2 --> B3
+    B3 --> B4
+    B4 --> B5
+    A6 --> C1
+    A5 --> C2
+    C5 --> D1
+    C4 --> D3 & D1 & D2 & D3
+    C1 --> C4

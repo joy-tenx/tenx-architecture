@@ -1,0 +1,123 @@
+erDiagram
+    User {
+        string UserID PK "Founder's User ID"
+        string FirstName
+        string LastName
+        string Email
+        string PasswordHash
+        datetime RegistrationDate
+        datetime LastLoginDate
+        string VerificationStatus
+    }
+
+    StartupIdea {
+        string IdeaID PK
+        string FounderUserID FK "FK to User.UserID"
+        string IdeaName
+        text ElevatorPitch
+        text ProblemStatement
+        text SolutionDescription
+        text TargetAudience
+        text MarketSize_Notes "Initial notes on market size"
+        text Competitors_Notes "Initial notes on competitors"
+        datetime CreationDate
+        datetime LastModifiedDate
+        string Status "e.g., Idea, Validating, Pitching"
+    }
+
+    CVP {
+        string CVP_ID PK "Customer Value Proposition ID"
+        string IdeaID FK "FK to StartupIdea.IdeaID"
+        integer VersionNumber "To track refinements"
+        text CustomerSegments_Desc
+        text ValuePropositions_Desc
+        text Channels_Desc
+        text CustomerRelationships_Desc
+        text RevenueStreams_Desc
+        text KeyActivities_Desc
+        text KeyResources_Desc
+        text KeyPartnerships_Desc
+        text CostStructure_Desc
+        datetime RefinementDate
+        boolean IsCurrent "Flags the active CVP for the idea"
+    }
+
+    Hypothesis {
+        string HypothesisID PK
+        string IdeaID FK "FK to StartupIdea.IdeaID"
+        text AssumptionText "The assumption being tested"
+        string ValidationMethod_Desc "e.g., Survey, Interview"
+        string Status "e.g., To Test, Validated, Invalidated"
+        text EvidenceSummary "Summary of findings"
+        datetime CreationDate
+    }
+
+    Survey {
+        string SurveyID PK
+        string IdeaID FK "FK to StartupIdea.IdeaID"
+        string PrimaryHypothesisID FK "Optional FK to Hypothesis.HypothesisID"
+        string Title
+        text Description
+        text GeneratedScript_JSON "JSON structure of questions"
+        string ShareableLink "Link for WhatsApp/Facebook"
+        string Status "e.g., Draft, Launched, Closed"
+        datetime CreationDate
+        datetime LaunchDate
+        datetime CloseDate
+    }
+
+    FeedbackFile {
+        string FileID PK "Uploaded feedback file ID"
+        string IdeaID FK "FK to StartupIdea.IdeaID"
+        string SurveyID FK "Optional FK to Survey.SurveyID if responses are for a specific survey"
+        string OriginalFileName
+        string StoredFilePath "Path in Blob Storage"
+        string FileType "e.g., CSV, PDF, TXT, audio, video"
+        datetime UploadDate
+        text Notes "User notes about the file content"
+    }
+
+    FeedbackInsight {
+        string InsightID PK
+        string IdeaID FK "FK to StartupIdea.IdeaID"
+        string SourceFileID FK "Optional FK to FeedbackFile.FileID"
+        string SourceSurveyID FK "Optional FK to Survey.SurveyID"
+        string InsightType "e.g., Theme, Keyword, Sentiment, Quote, PainPoint, Gain"
+        text InsightValue "The content of the insight"
+        text Details "Supporting quotes, frequency, etc."
+        float SentimentScore "If applicable, e.g., -1 to 1"
+        datetime AnalysisDate
+    }
+
+    PitchDeckTemplate {
+        string TemplateID PK
+        string TemplateName "e.g., AWS Format, Elevator Format"
+        text Description
+        text StructureDefinition_JSON "JSON defining sections, prompts, and fields"
+        boolean IsActive
+    }
+
+    PitchDeck {
+        string PitchDeckID PK
+        string IdeaID FK "FK to StartupIdea.IdeaID"
+        string TemplateID FK "FK to PitchDeckTemplate.TemplateID"
+        integer VersionNumber
+        text GeneratedContent_JSON "Pre-filled content"
+        string FinalFilePath "Path in Blob Storage"
+        datetime CreationDate
+        datetime LastModifiedDate
+        string SharingLink "Optional shareable link"
+    }
+
+    User                 ||--o{ StartupIdea : creates
+    StartupIdea          ||--o{ CVP : has_versions_of
+    StartupIdea          ||--o{ Hypothesis : tests_with
+    StartupIdea          ||--o{ Survey : uses_for_research
+    Hypothesis           }o--o{ Survey : may_be_tested_by
+    StartupIdea          ||--o{ FeedbackFile : collects_feedback_via
+    Survey               }o--o{ FeedbackFile : may_source_data_from
+    StartupIdea          ||--o{ FeedbackInsight : derives
+    FeedbackFile         }o--o{ FeedbackInsight : is_analyzed_into
+    Survey               }o--o{ FeedbackInsight : may_be_analyzed_into
+    StartupIdea          ||--o{ PitchDeck : develops
+    PitchDeckTemplate    ||--o{ PitchDeck : is_basis_for
