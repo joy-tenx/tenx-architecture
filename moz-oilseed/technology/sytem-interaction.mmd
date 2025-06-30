@@ -1,0 +1,111 @@
+---
+config:
+  layout: elk
+  theme: neo
+---
+flowchart LR
+ subgraph Farmer["Farmer"]
+        B{"Inspector Available?"}
+        A["Book Inspection"]
+        C["Inspection Scheduled"]
+        D["Wait/Reschedule"]
+        E["Inspector Arrives & Inspects Crop"]
+        F{"Inspection Result?"}
+        G["Certificate Request"]
+        H["Dispute Resolution (Optional)"]
+  end
+ subgraph Trader["Trader"]
+        J{"Registration Approved?"}
+        I["Register/Update Profile"]
+        K["Receive Trader ID"]
+        L["Address Registration Issues"]
+        M["Receive Inspection Requests from Farmers"]
+        N{"Accept/Reject Request?"}
+        O["Provide Inspection Details"]
+        P["Notify Farmer"]
+  end
+ subgraph Inspector_ThirdParty["Inspector (Third-Party)"]
+        R{"Accept/Reject?"}
+        Q["Receive Inspection Assignment"]
+        S["Conduct Inspection"]
+        T["Record Inspection Results"]
+        U["Submit Report & Certificate Request"]
+  end
+ subgraph IAOM_Officer["IAOM Officer"]
+        W{"Approve/Reject?"}
+        V["Review Trader Applications"]
+        X["Trader Activated"]
+        Y["Notify Trader"]
+        AA{"Approve/Reject?"}
+        Z["Validate Inspection Reports"]
+        BB["Certificate Issued"]
+        CC["Return for Review"]
+  end
+ subgraph Public_User["Public User (Buyer/Consumer)"]
+        EE{"Verify Certificate Status"}
+        DD["Scan Certificate QR Code"]
+  end
+ subgraph Common_Interactions["Common Interactions"]
+        FF["Display Certificate Details"]
+        GG["Display Error Message"]
+  end
+    A --> B
+    B -- Yes --> C
+    B -- No --> D
+    C --> E
+    E --> F
+    F -- Pass --> G
+    F -- Fail --> H
+    I --> J
+    J -- Yes --> K
+    J -- No --> L
+    K --> M
+    M --> N
+    N -- Accept --> O
+    N -- Reject --> P
+    Q --> R
+    R -- Accept --> S
+    S --> T
+    T --> U
+    V --> W
+    W -- Approve --> X
+    W -- Reject --> Y
+    Z --> AA
+    AA -- Approve --> BB
+    AA -- Reject --> CC
+    DD --> EE
+    EE -- Valid --> FF
+    EE -- Invalid --> GG
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#ccf,stroke:#333,stroke-width:2px
+    style C fill:#9cf,stroke:#333,stroke-width:2px
+    style D fill:#fcc,stroke:#333,stroke-width:2px
+    style E fill:#9cf,stroke:#333,stroke-width:2px
+    style F fill:#ccf,stroke:#333,stroke-width:2px
+    style G fill:#9cf,stroke:#333,stroke-width:2px
+    style H fill:#fcc,stroke:#333,stroke-width:2px
+    style I fill:#f9f,stroke:#333,stroke-width:2px
+    style J fill:#ccf,stroke:#333,stroke-width:2px
+    style K fill:#9cf,stroke:#333,stroke-width:2px
+    style L fill:#fcc,stroke:#333,stroke-width:2px
+    style M fill:#f9f,stroke:#333,stroke-width:2px
+    style N fill:#ccf,stroke:#333,stroke-width:2px
+    style O fill:#9cf,stroke:#333,stroke-width:2px
+    style P fill:#fcc,stroke:#333,stroke-width:2px
+    style Q fill:#f9f,stroke:#333,stroke-width:2px
+    style R fill:#ccf,stroke:#333,stroke-width:2px
+    style S fill:#9cf,stroke:#333,stroke-width:2px
+    style T fill:#fcc,stroke:#333,stroke-width:2px
+    style U fill:#f9f,stroke:#333,stroke-width:2px
+    style V fill:#ccf,stroke:#333,stroke-width:2px
+    style W fill:#9cf,stroke:#333,stroke-width:2px
+    style X fill:#fcc,stroke:#333,stroke-width:2px
+    style Y fill:#f9f,stroke:#333,stroke-width:2px
+    style Z fill:#ccf,stroke:#333,stroke-width:2px
+    style AA fill:#9cf,stroke:#333,stroke-width:2px
+    style BB fill:#fcc,stroke:#333,stroke-width:2px
+    style CC fill:#f9f,stroke:#333,stroke-width:2px
+    style DD fill:#ccf,stroke:#333,stroke-width:2px
+    style EE fill:#9cf,stroke:#333,stroke-width:2px
+    style FF fill:#fcc,stroke:#333,stroke-width:2px
+    style GG fill:#f9f,stroke:#333,stroke-width:2px

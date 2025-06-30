@@ -1,0 +1,45 @@
+---
+config:
+  theme: neo
+  layout: dagre
+---
+flowchart LR
+ subgraph System_Boundary["Mozambique Oilseed Sector Platform"]
+        A["Trader Management Subsystem"]
+        B["Inspection & Certification Subsystem"]
+        C["Public Verification Subsystem"]
+        D["Data Analytics & Reporting Subsystem"]
+        E["Payment Processing Subsystem"]
+  end
+ subgraph External_Systems["External Systems"]
+        X1["Farmers"]
+        X2["Traders"]
+        X3["Inspectors"]
+        X4["IAOM (Instituto de Aplicação de Ordem na Agricultura)"]
+        X5["Payment Gateway (e.g. Vodacom, M-Pesa)"]
+        X6["SMS Provider"]
+        X7["Government Network (GovNet/e-Gov)"]
+  end
+    A -- Uses --> X2
+    B -- Uses --> X1 & X3
+    C -- Uses --> X2 & X1
+    D -- Aggregates from --> A & B & C
+    E -- Integrates with --> X5
+    A -- Communicates via --> X6
+    B -- Communicates via --> X6
+    C -- Communicates via --> X6
+    A -- Integrates with --> X7
+    B -- Integrates with --> X7
+    D -- Integrates with --> X7
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#ccf,stroke:#333,stroke-width:2px
+    style C fill:#9cf,stroke:#333,stroke-width:2px
+    style D fill:#fcc,stroke:#333,stroke-width:2px
+    style E fill:#f9f,stroke:#333,stroke-width:2px
+    style X1 fill:#ccf,stroke:#333,stroke-width:2px
+    style X2 fill:#9cf,stroke:#333,stroke-width:2px
+    style X3 fill:#fcc,stroke:#333,stroke-width:2px
+    style X4 fill:#f9f,stroke:#333,stroke-width:2px
+    style X5 fill:#ccf,stroke:#333,stroke-width:2px
+    style X6 fill:#9cf,stroke:#333,stroke-width:2px
+    style X7 fill:#fcc,stroke:#333,stroke-width:2px
